@@ -26,9 +26,12 @@ module.exports = function(source, map) {
 
     if(this.sourceMap){
       var outMap = instrumenter.lastSourceMap();
-      outMap.applySourceMap(new SourceMapConsumer(map), this.resourcePath);
 
-      map = outMap.toJSON();
+      if(outMap){
+          outMap.applySourceMap(new SourceMapConsumer(map), this.resourcePath);
+
+          map = outMap.toJSON();
+      }
     }
 
     this.callback(null, instrumented, map);
